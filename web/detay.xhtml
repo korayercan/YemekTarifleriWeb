@@ -18,22 +18,19 @@
                 <b:navLink value="Kategoriler" outcome="tarifler"></b:navLink>
             </b:navbarLinks>
             <b:navbarLinks pull="right">
-                
+                <b:navLink><h:outputText value="#{user.fname}"/></b:navLink>
             </b:navbarLinks>
         </b:navBar>
         <b:container style="margin-top: 10px;">
             <b:jumbotron style="text-align: center; background-color:#eee">
-                <h:form>
-                    <ui:repeat value="#{main.v}" var="item">
-                        <h:panelGrid columns="1" border="0">
-                            <h:graphicImage style="width: 500px; border-radius: 10%; box-shadow: 10px 10px 5px gray;" value="#{item.image}" />
-                            <h1>#{item.name}</h1>
-                            <p>#{item.shortdesc}</p>
-                            <b:commandButton value="#{item.recipeid}"/>
-                            <br/>
-                        </h:panelGrid>
-                    </ui:repeat> 
-                </h:form>
+                <h1>#{main.reqrecipe.name}</h1>
+                <h:graphicImage style="width: 500px; border-radius: 10%; box-shadow: 10px 10px 5px gray;" value="#{main.reqrecipe.image}" />
+                <br/><br/><br/>
+                <p>Malzemeler:</p>
+                <p>#{main.reqrecipe.ingridients}</p>
+                <br/>
+                <p>Detay:</p>
+                <p>#{main.reqrecipe.detail}</p>
             </b:jumbotron>        
         </b:container>
                 

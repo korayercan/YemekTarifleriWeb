@@ -18,7 +18,7 @@
                 <b:navLink value="Kategoriler" outcome="tarifler"></b:navLink>
             </b:navbarLinks>
             <b:navbarLinks pull="right">
-                
+                <b:navLink><h:outputText value="#{user.fname}"/></b:navLink>
             </b:navbarLinks>
         </b:navBar>
         <b:container style="margin-top: 10px;">
@@ -29,7 +29,7 @@
                             <h:graphicImage style="width: 500px; border-radius: 10%; box-shadow: 10px 10px 5px gray;" value="#{item.image}" />
                             <h1>#{item.name}</h1>
                             <p>#{item.shortdesc}</p>
-                            <b:commandButton value="#{item.recipeid}"/>
+                            <b:commandButton value="#{item.recipeid}" action="#{main.showReq(item.recipeid)}"/>
                             <br/>
                         </h:panelGrid>
                     </ui:repeat> 

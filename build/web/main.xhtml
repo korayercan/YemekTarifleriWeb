@@ -11,20 +11,21 @@
     </h:head>
     <h:body style="padding: 30px;">
         #{main.tarifler}
+        
         <b:navBar brand="MisYemek" brandHref="/YemekTarifleriWeb/faces/main.xhtml" fixed="top" inverse="true">
             <b:navbarLinks>
-                <b:navLink value="Anasayfa" outcome="main"></b:navLink>
+                <b:navLink value="Anasayfa"  outcome="main"></b:navLink>
                 <b:navLink value="Tarifler" outcome="tarifler"></b:navLink>
                 <b:navLink value="Kategoriler" outcome="tarifler"></b:navLink>
             </b:navbarLinks>
             <b:navbarLinks pull="right">
-                
+                <b:navLink><h:outputText value="#{user.fname}"/></b:navLink>
             </b:navbarLinks>
         </b:navBar>
         <b:container style="margin-top: 10px;">
             <b:jumbotron style="text-align: center; background-color:#eee">
               <h:graphicImage style="width: 500px; border-radius: 10%; box-shadow: 10px 10px 5px gray;" value="https://i2.milimaj.com/i/milliyet/75/1200x675/5f4693745542821134f66eee.jpg" />
-              <h1>Hoşgeldiniz!</h1>
+              <h1>Hoşgeldin #{user.fname} !</h1>
               <p>Mis gibi yemeklerle Mis gibi hayat!</p>
             </b:jumbotron>        
         </b:container>

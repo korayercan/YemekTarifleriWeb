@@ -1,3 +1,4 @@
+import javax.faces.event.ValueChangeEvent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -5,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 
 @ManagedBean( name="user" )
+@SessionScoped 
 public class User {
     private int userid;
     private String fname;
@@ -15,6 +19,7 @@ public class User {
     private String password;
     private String email;
     private String profileimage;
+    
     
     public int getUserid(){
         return userid;
@@ -64,26 +69,33 @@ public class User {
     public void setProfileimage( String image ){
         this.profileimage = profileimage;
     }
-
+    public void namelistener(ValueChangeEvent e){
+        this.username = e.getNewValue().toString();
+    }
+    public void passwordlistener(ValueChangeEvent e){
+        this.password = e.getNewValue().toString();
+    }
     public String giris() throws SQLException{
         Connection baglanti=null;
         
         try{
             baglanti=DriverManager.getConnection("jdbc:derby://localhost:1527/YemekTarifiSitesiDB", "admin1", "admin");
             Statement showstate=baglanti.createStatement();
-            String s= "SELECT * FROM ADMIN1.USERS WHERE USERNAME = "+username ;
+            String s= "SELECT * FROM ADMIN1.USERS" ;
             ResultSet resultSet1=showstate.executeQuery(s);
             while(resultSet1.next()){
-                if(password == resultSet1.getString("PASSWORD")){
-                    User user1 = new User();
-                    user1.setUserid(resultSet1.getInt("USER_ID"));
-                    user1.setFname(resultSet1.getString("FNAME"));
-                    user1.setLname(resultSet1.getString("LNAME"));
-                    user1.setEmail(resultSet1.getString("EMAİL"));
-                    user1.setProfileimage(resultSet1.getString("PROFILE_IMAGE"));
+                if(password.equals(resultSet1.getString("PASSWORD")) && username.equals(resultSet1.getString("USERNAME"))){
+                    this.userid = resultSet1.getInt("USER_ID");
+                    this.fname = resultSet1.getString("FNAME");
+                    this.lname = resultSet1.getString("LNAME");
+                    this.username = resultSet1.getString("USERNAME");
+                    this.password = resultSet1.getString("PASSWORD");
+                    this.email = resultSet1.getString("EMAİL");
+                    this.profileimage = resultSet1.getString("PROFILE_IMAGE");
+                    return "main";
                 }
             }
-            return "main";
+            return "index";
         } 
         finally{
             baglanti.close(); 

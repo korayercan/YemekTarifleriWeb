@@ -8,29 +8,42 @@
     <h:head>
         <title>Giriş Yap - MisYemek</title>
         <meta name="author" content="WEBx"></meta>
+        <style>
+            body{
+                background: url(https://c.tenor.com/0BiN-y-lfgAAAAAC/tavuk-yemek.gif);
+            }
+            #login{
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-right: -50%;
+                transform: translate(-50%, -50%)
+            }
+        </style>
     </h:head>
     <h:body style="padding: 30px;">
         #{main.tarifler}
         <b:navBar brand="MisYemek" brandHref="/YemekTarifleriWeb/faces/main.xhtml" fixed="top" inverse="true">
             <b:navbarLinks>
-                <b:navLink value="Anasayfa" href="/YemekTarifleriWeb/"></b:navLink>
+                <b:navLink value="Anasayfa" outcome="main"></b:navLink>
                 <b:navLink value="Tarifler" outcome="tarifler"></b:navLink>
                 <b:navLink value="Kategoriler" outcome="tarifler"></b:navLink>
             </b:navbarLinks>
             
         </b:navBar>
         <b:container style="margin-top: 50px;">
-            <b:jumbotron style="text-align: center; background-color:#eee">
-              <h:form>
+            <b:jumbotron id="login"  style="background-color:#eee;">
+              <h:form >
                 <h:panelGrid columns="1">
                     <h:outputText value="Giriş"/>
                     <h:inputText id="username" required="true"
-                     requiredMessage="Kullanıcı adı"
+                                 requiredMessage="Kullanıcı adı" valueChangeListener="#{user.namelistener}"
                      value="#{user.username}" />
                     <h:inputSecret id="password" required="true"
-                     requiredMessage="Şifre"
+                                   requiredMessage="Şifre" valueChangeListener="#{user.passwordlistener}"
                      value="#{user.password}" />
-                    <h:commandButton value="Giriş Yap" action="#{user.giris()}"/>
+                    <h:commandButton value="Giriş Yap" action="#{user.giris()}" />
                     <!--<h:outputLink value="index.xhtml">Ana Sayfa</h:outputLink>-->
                 </h:panelGrid>
             </h:form>

@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import javax.annotation.Resource;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -22,9 +23,10 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
 @ManagedBean( name="main" )
-
+@SessionScoped
 public class Recipe{
-    private Vector v = new Vector();
+    private Vector<Recipe> v = new Vector();
+    private Recipe reqrecipe;
     private int recipeid;
     private String name;
     private String shortdesc;
@@ -33,11 +35,10 @@ public class Recipe{
     private String image;
     private int categoryıd;
 
-    DataSource dataSource;
-
-    public Recipe(){
-        
+    public Recipe getReqrecipe(){
+        return reqrecipe;
     }
+    
     public Vector getV(){
         return v;
     }
@@ -122,5 +123,23 @@ public class Recipe{
         finally{
             baglanti.close(); 
         } 
-    } 
+    }
+    
+    public String showReq(int id) throws SQLException{
+        for(int i = 0; i < v.size();i++){
+            if(id == v.get(i).recipeid){
+                reqrecipe = new Recipe();
+                reqrecipe.categoryıd = v.get(i).categoryıd;
+                reqrecipe.detail = v.get(i).detail;
+                reqrecipe.image = v.get(i).image;
+                reqrecipe.ingridients = v.get(i).ingridients;
+                reqrecipe.name = v.get(i).name;
+                reqrecipe.shortdesc = v.get(i).shortdesc;
+                reqrecipe.recipeid = v.get(i).recipeid;
+                return "detay";
+            }
+        }
+        return null;
+    }
+
 }
