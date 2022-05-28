@@ -1,10 +1,13 @@
+import java.util.*;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.DataSource;
 
@@ -20,54 +23,49 @@ import javax.naming.NamingException;
 
 @ManagedBean( name="main" )
 
-public class Main{
-    private String recipeıd;
+public class Recipe{
+    private Vector v = new Vector();
+    private int recipeıd;
     private String name;
     private String shortdesc;
     private String detail;
     private String ingridients;
     private String image;
-    private String categoryıd;
+    private int categoryıd;
 
     DataSource dataSource;
 
-    public Main(){
-        try{
-        Context ctx = new InitialContext();
-        // kullandığımız database adı addressbook.
-            NamingEnumeration<NameClassPair> names = (NamingEnumeration<NameClassPair>) ctx.list("");
-            while(names.hasMore()){
-                System.out.println("OK"+names.next());
-            } 
-        }
-        catch (NamingException e){
-            e.printStackTrace();
-        }
+    public Recipe(){
+        
     }
-
-    public String getRecipeıd(){
+    public Vector getV(){
+        return v;
+    }
+    
+    public int getRecipeıd(){
         return recipeıd;
     } 
-    public void setRecipeıd( String recipeıd ){
+    public void setRecipeıd( int recipeıd ){
         this.recipeıd = recipeıd;
     } 
 
     public String getName(){
         return name;
     }
-
     public void setName( String name ){
         this.name = name;
     } 
-
+    
     public String getShortdesc(){
         return shortdesc;
     }
-
+    public void setShortdesc( String shortdesc ){
+        this.shortdesc = shortdesc;
+    }
+    
     public void setPassword( String shortdesc ){
         this.shortdesc = shortdesc;
     }
-
     public String getDetail(){
         return detail;
     }
@@ -92,34 +90,37 @@ public class Main{
         this.image = image;
     }
 
-    public String getCategoryıd(){
+    public int getCategoryıd(){
         return categoryıd;
     }
 
-    public void setCategoryıd( String categoryıd ){
+    public void setCategoryıd( int categoryıd ){
         this.categoryıd = categoryıd;
     }
 
-    public ResultSet getAddresses() throws SQLException{
-
-        if ( dataSource == null )
-        throw new SQLException( "Unable to obtain DataSource" );
-
-        Connection connection = dataSource.getConnection();
-
-        if ( connection == null )
-        throw new SQLException( "Unable to connect to DataSource" );
-
+    public ResultSet getTarifler() throws SQLException{
+        Connection baglanti=null;
+        
         try{
-            PreparedStatement object1 = connection.prepareStatement(
-            "SELECT FIRSTNAME, LASTNAME, STREET, CITY, STATE, ZIP " +
-            "FROM ADDRESSES ORDER BY LASTNAME, FIRSTNAME" );
-            CachedRowSet resultSet1 = new com.sun.rowset.CachedRowSetImpl();
-            resultSet1.populate( object1.executeQuery() );
+            baglanti=DriverManager.getConnection("jdbc:derby://localhost:1527/YemekTarifiSitesiDB", "admin1", "admin");
+            Statement showstate=baglanti.createStatement();
+            String s= "SELECT * FROM ADMIN1.RECIPES";
+            ResultSet resultSet1=showstate.executeQuery(s);
+            while(resultSet1.next()){
+                Recipe recipe1 = new Recipe();
+                recipe1.setRecipeıd(resultSet1.getInt("RECIPE_ID"));
+                recipe1.setName(resultSet1.getString("NAME"));
+                recipe1.setShortdesc(resultSet1.getString("SHORT_DESC"));
+                recipe1.setDetail(resultSet1.getString("DETAIL"));
+                recipe1.setIngridients(resultSet1.getString("INGRIDIENTS"));
+                recipe1.setImage(resultSet1.getString("IMAGE"));
+                recipe1.setCategoryıd(resultSet1.getInt("CATEGORY_ID"));
+                v.add(recipe1);
+            }
             return resultSet1;
         } 
         finally{
-            connection.close(); 
+            baglanti.close(); 
         } 
     } 
 }
