@@ -11,11 +11,11 @@
     </h:head>
     <h:body style="padding: 30px;">
         #{main.tarifler}
-        <b:navBar brand="MisYemek" brandHref="/YemekTarifleriWeb/" fixed="top" inverse="true">
+        <b:navBar brand="MisYemek" brandHref="/YemekTarifleriWeb/faces/main.xhtml" fixed="top" inverse="true">
             <b:navbarLinks>
                 <b:navLink value="Anasayfa" href="/YemekTarifleriWeb/"></b:navLink>
-                <b:navLink value="Tarifler" outcome="detay"></b:navLink>
-                <b:navLink value="Kategoriler" outcome="detay"></b:navLink>
+                <b:navLink value="Tarifler" outcome="tarifler"></b:navLink>
+                <b:navLink value="Kategoriler" outcome="tarifler"></b:navLink>
             </b:navbarLinks>
             
         </b:navBar>
