@@ -18,8 +18,7 @@
                 <b:navLink value="Kategoriler" outcome="detay"></b:navLink>
             </b:navbarLinks>
             <b:navbarLinks pull="right">
-                <b:navLink value="Giriş Yap" outcome="giris"></b:navLink>
-                <b:navLink value="Kaydol" outcome="kaydol"></b:navLink>
+                
             </b:navbarLinks>
         </b:navBar>
         <b:container style="margin-top: 50px;">
@@ -31,16 +30,17 @@
         </b:container>
         <b:container style="margin-top: 10px;">
             <b:jumbotron style="text-align: center; background-color:#eee">
-                <h2>Favorilerimiz !</h2>
-            
-                <h1>#{main.v.get(0).name}</h1>
-                <p>#{main.v.get(0).shortdesc}</p>
-                <h:graphicImage style="width: 500px" value="#{main.v.get(0).image}" />
-
-
-                <h1>#{main.v.get(1).name}</h1>
-                <p>#{main.v.get(1).shortdesc}</p>
-                <h:graphicImage style="width: 500px" value="#{main.v.get(1).image}" />
+                <h:form>
+                    <ui:repeat value="#{main.v}" var="item">
+                        <h:panelGrid columns="1" border="0">
+                            <h:graphicImage style="width: 500px" value="#{item.image}" />
+                            <h1>#{item.name}</h1>
+                            <p>#{item.shortdesc}</p>
+                            <b:commandButton value="#{item.recipeid}"/>
+                            <br/>
+                        </h:panelGrid>
+                    </ui:repeat> 
+                </h:form>
             </b:jumbotron>        
         </b:container>
                 

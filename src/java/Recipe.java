@@ -25,7 +25,7 @@ import javax.naming.NamingException;
 
 public class Recipe{
     private Vector v = new Vector();
-    private int recipeıd;
+    private int recipeid;
     private String name;
     private String shortdesc;
     private String detail;
@@ -42,11 +42,11 @@ public class Recipe{
         return v;
     }
     
-    public int getRecipeıd(){
-        return recipeıd;
+    public int getRecipeid(){
+        return recipeid;
     } 
-    public void setRecipeıd( int recipeıd ){
-        this.recipeıd = recipeıd;
+    public void setRecipeid( int recipeıd ){
+        this.recipeid = recipeıd;
     } 
 
     public String getName(){
@@ -108,7 +108,7 @@ public class Recipe{
             ResultSet resultSet1=showstate.executeQuery(s);
             while(resultSet1.next()){
                 Recipe recipe1 = new Recipe();
-                recipe1.setRecipeıd(resultSet1.getInt("RECIPE_ID"));
+                recipe1.setRecipeid(resultSet1.getInt("RECIPE_ID"));
                 recipe1.setName(resultSet1.getString("NAME"));
                 recipe1.setShortdesc(resultSet1.getString("SHORT_DESC"));
                 recipe1.setDetail(resultSet1.getString("DETAIL"));
