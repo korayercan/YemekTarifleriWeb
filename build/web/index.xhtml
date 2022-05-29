@@ -38,13 +38,13 @@
                 <h:panelGrid columns="1">
                     <h:outputText value="Giriş"/>
                     <h:inputText id="username" required="true"
-                                 requiredMessage="Kullanıcı adı" valueChangeListener="#{user.namelistener}"
+                                 requiredMessage="Kullanıcı adı" valueChangeListener="#{user.usernamelistener}"
                      value="#{user.username}" />
                     <h:inputSecret id="password" required="true"
                                    requiredMessage="Şifre" valueChangeListener="#{user.passwordlistener}"
                      value="#{user.password}" />
                     <h:commandButton value="Giriş Yap" action="#{user.giris()}" />
-                    <!--<h:outputLink value="index.xhtml">Ana Sayfa</h:outputLink>-->
+                    <h:outputLink value="faces/kaydol.xhtml">Kayıt ol</h:outputLink>
                 </h:panelGrid>
             </h:form>
             </b:jumbotron>        

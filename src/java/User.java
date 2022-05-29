@@ -2,6 +2,7 @@ import javax.faces.event.ValueChangeEvent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -69,8 +70,17 @@ public class User {
     public void setProfileimage( String image ){
         this.profileimage = profileimage;
     }
-    public void namelistener(ValueChangeEvent e){
+    public void usernamelistener(ValueChangeEvent e){
         this.username = e.getNewValue().toString();
+    }
+    public void fnamelistener(ValueChangeEvent e){
+        this.fname = e.getNewValue().toString();
+    }
+    public void lnamelistener(ValueChangeEvent e){
+        this.lname = e.getNewValue().toString();
+    }
+    public void emaillistener(ValueChangeEvent e){
+        this.email = e.getNewValue().toString();
     }
     public void passwordlistener(ValueChangeEvent e){
         this.password = e.getNewValue().toString();
@@ -97,6 +107,20 @@ public class User {
             }
             return "index";
         } 
+        finally{
+            baglanti.close(); 
+        } 
+    }
+    public String kaydol() throws SQLException{
+        Connection baglanti=null;
+
+        try{
+            baglanti=DriverManager.getConnection("jdbc:derby://localhost:1527/YemekTarifiSitesiDB", "admin1", "admin");
+            Statement showstate=baglanti.createStatement();
+            showstate.executeUpdate("INSERT INTO ADMIN1.USERS " + "(FNAME,LNAME,USERNAME,PASSWORD ,EMAIL) VALUES ('"+fname+ "' , '"+lname+"', '"+username+"' , '"+password+"', '"+email+"')");
+
+            return "index"; // go back to index.xhtml page
+        } // end try
         finally{
             baglanti.close(); 
         } 

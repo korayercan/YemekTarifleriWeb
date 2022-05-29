@@ -10,27 +10,42 @@
         <meta name="author" content="WEBx"></meta>
     </h:head>
     <h:body style="padding: 30px;">
-        
+
         <b:navBar brand="MisYemek" brandHref="/YemekTarifleriWeb/faces/main.xhtml" fixed="top" inverse="true">
             <b:navbarLinks>
                 <b:navLink value="Anasayfa" href="/YemekTarifleriWeb/"></b:navLink>
                 <b:navLink value="Tarifler" outcome="tarifler"></b:navLink>
             </b:navbarLinks>
-            <b:navbarLinks pull="right">
-                <b:navLink value="Giriş Yap" outcome="giris"></b:navLink>
-                <b:navLink value="Kaydol" outcome="kaydol"></b:navLink>
-            </b:navbarLinks>
+
         </b:navBar>
         <b:container style="margin-top: 50px;">
-            <b:jumbotron>
-                <h1>BootsFaces Starter Template</h1>
-                <p> Use this JSF document as a way to quickly start any new project.</p>
-                <p> All you get is this text and a mostly barebone JSF document.</p>
-                <p>
-                    <a href="https://github.com/TheCoder4eu/BootsFaces-examples/blob/master/src/main/webapp/starter_template.xhtml" class="btn btn-lg btn-info">View Page Source »</a>
-                </p>
+            <b:jumbotron id="login"  style="background-color:#eee;">
+              <h:form >
+                <h:panelGrid columns="1">
+                    <h:outputText value="Kaydol"/>
+                    <h:inputText id="fname" required="true"
+                                 requiredMessage="Ad" valueChangeListener="#{user.fnamelistener}"
+                                 value="#{user.fname}" />
+                    <h:inputText id="lname" required="true"
+                                 requiredMessage="Soyad" valueChangeListener="#{user.lnamelistener}"
+                                 value="#{user.lname}" />
+                    <h:inputText id="username" required="true"
+                                 requiredMessage="Kullanıcı adı" valueChangeListener="#{user.usernamelistener}"
+                                 value="#{user.username}" />
+                    <h:inputText id="email" required="true"
+                                 requiredMessage="Email" valueChangeListener="#{user.emaillistener}"
+                                 value="#{user.email}" />
+                    <h:inputSecret id="password" required="true"
+                                   requiredMessage="Şifre" valueChangeListener="#{user.passwordlistener}"
+                                   value="#{user.password}" />
+
+                    <h:commandButton value="Kaydol" action="#{user.kaydol()}" />
+
+                </h:panelGrid>
+            </h:form>
             </b:jumbotron>
+
         </b:container>
-                
+
     </h:body>
 </html>

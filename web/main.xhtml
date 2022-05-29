@@ -37,12 +37,12 @@
                         <h:graphicImage style="width: 500px; border-radius: 10%; box-shadow: 10px 10px 5px gray;" value="#{main.v.get(0).image}" />
                         <h1>#{main.v.get(0).name}</h1>
                         <p>#{main.v.get(0).shortdesc}</p>
-                        <b:commandButton value="#{main.v.get(0).recipeid}"/>
+                        <b:commandButton value="Git" action="#{main.showReq(main.v.get(0).recipeid)}"/>
                         <br/>
                         <h:graphicImage style="width: 500px; border-radius: 10%; box-shadow: 10px 10px 5px gray;" value="#{main.v.get(1).image}" />
                         <h1>#{main.v.get(1).name}</h1>
                         <p>#{main.v.get(1).shortdesc}</p>
-                        <b:commandButton value="#{main.v.get(1).recipeid}"/>
+                        <b:commandButton value="Git" action="#{main.showReq(main.v.get(1).recipeid)}"/>
                     </h:panelGrid>
                 </b:form>
             </b:jumbotron>        
