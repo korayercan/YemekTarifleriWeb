@@ -10,7 +10,9 @@
         <meta name="author" content="WEBx"></meta>
     </h:head>
     <h:body style="padding: 30px;">
+        #{comment.v_delete()}
         #{main.tarifler}
+        #{comment.comments(main.reqrecipe.recipeid)}
         <b:navBar brand="MisYemek" brandHref="/YemekTarifleriWeb/faces/main.xhtml" fixed="top" inverse="true">
             <b:navbarLinks>
                 <b:navLink value="Anasayfa" outcome="main"></b:navLink>
@@ -31,7 +33,31 @@
                 <br/>
                 <p>Detay:</p>
                 <p>#{main.reqrecipe.detail}</p>
-            </b:jumbotron>        
+            </b:jumbotron>
+            <b:jumbotron style="text-align: center; background-color:#eee">
+                <h:form>
+                    <ui:repeat value="#{comment.v}" var="item">
+                        <h:panelGrid columns="1" border="0">
+                            
+                            <h1>#{item.username}</h1>
+                            <p>#{item.content}</p>
+                    
+                            <br/>
+                        </h:panelGrid>
+                    </ui:repeat> 
+                </h:form>
+            </b:jumbotron>
+            <b:jumbotron id="comment" style="text-align: center; background-color:#eee">
+              <h:form >
+                <h:panelGrid columns="1">
+                    <h:outputText value="Yorum Yap"/>
+                    <h:inputText id="fname" required="true"
+                                 requiredMessage="Ad" valueChangeListener="#{comment.contentlistener}"
+                                 value="#{comment.content}" />
+                    <h:commandButton value="Gönder" action="#{comment.yorumyap(user.userid)}" />
+                </h:panelGrid>
+            </h:form>
+            </b:jumbotron>
         </b:container>
                 
     </h:body>

@@ -64,9 +64,7 @@ public class Recipe{
         this.shortdesc = shortdesc;
     }
     
-    public void setPassword( String shortdesc ){
-        this.shortdesc = shortdesc;
-    }
+    
     public String getDetail(){
         return detail;
     }
@@ -141,5 +139,32 @@ public class Recipe{
         }
         return null;
     }
-
+    public void comments() throws SQLException{
+        Connection baglanti=null;
+        
+        try{
+            baglanti=DriverManager.getConnection("jdbc:derby://localhost:1527/YemekTarifiSitesiDB", "admin1", "admin");
+            Statement showstate=baglanti.createStatement();
+            String s= "SELECT * FROM ADMIN1.COMMENTS WHERE RECIPE_ID ="+reqrecipe.recipeid;
+            ResultSet resultSet1=showstate.executeQuery(s);
+             while(resultSet1.next()){
+                Recipe recipe1 = new Recipe();
+                recipe1.setRecipeid(resultSet1.getInt("RECIPE_ID"));
+                recipe1.setName(resultSet1.getString("NAME"));
+                recipe1.setShortdesc(resultSet1.getString("SHORT_DESC"));
+                recipe1.setDetail(resultSet1.getString("DETAIL"));
+                recipe1.setIngridients(resultSet1.getString("INGRIDIENTS"));
+                recipe1.setImage(resultSet1.getString("IMAGE"));
+                recipe1.setCategoryıd(resultSet1.getInt("CATEGORY_ID"));
+                v.add(recipe1);
+            }
+            
+        } 
+        finally{
+            baglanti.close(); 
+        } 
+    }
+    public void v_delete(){
+        v.clear();
+    }
 }
